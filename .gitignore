@@ -1,0 +1,21 @@
+# Snapcraft credentials
+snapcraft_creds
+snapcraft-token
+*.login
+
+# Build artifacts
+*.snap
+*.snap.manifest
+*.snapcraft
+*.snap.xdelta3
+parts/
+prime/
+stage/
+
+# OS files
+.DS_Store
+*~
+
+# Tessl local config
+.tessl/
+tessl.json
