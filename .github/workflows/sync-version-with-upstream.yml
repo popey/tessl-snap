@@ -13,7 +13,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          token: ${{ secrets.GH_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Get latest version from npm
         id: latest
@@ -50,7 +50,7 @@ jobs:
         if: steps.compare.outputs.needs_update == 'true'
         uses: peter-evans/create-pull-request@v6
         with:
-          token: ${{ secrets.GH_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
           commit-message: "Update to version ${{ steps.latest.outputs.version }}"
           title: "Update to version ${{ steps.latest.outputs.version }}"
           body: |
