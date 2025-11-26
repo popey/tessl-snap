@@ -1,25 +1,33 @@
 name: tessl
 base: core24
-version: '0.27.0'
+version: '0.50.6'
 summary: Tessl keeps coding agents on rails using spec-driven development
 description: |
-  Install usage docs for your favorite open source library from the Tessl Spec Registry.
-  Use the Tessl framework to create your own spec-driven project.
+  Install usage docs for your favorite open source library from the Tessl Spec Registry
+  Create your own internal docs and share with your team
+website: https://tessl.io
+title: Tessl
+license: Proprietary
+contact: https://discord.com/invite/jbb2vHnHZQ
 
 grade: stable
 confinement: strict
+
+platforms:
+  amd64:
+  arm64:
 
 parts:
   tessl:
     plugin: npm
     npm-include-node: true
     source: https://registry.npmjs.org/@tessl/cli/-/cli-$CRAFT_PROJECT_VERSION.tgz
-    source-checksum: sha1/cda5c2c3b1a2d8840978b0ff0374521e47e59080
     npm-node-version: "22"
 
 apps:
   tessl:
-    command: tessl
+    command: bin/tessl
     plugs:
       - home
       - network
+      - removable-media
