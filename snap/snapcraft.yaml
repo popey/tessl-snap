@@ -1,6 +1,6 @@
 name: tessl
 base: core24
-version: '0.53.0'
+version: '0.56.0'
 summary: Tessl keeps coding agents on rails using spec-driven development
 description: |
   Install usage docs for your favorite open source library from the Tessl Spec Registry
