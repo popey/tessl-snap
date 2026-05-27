@@ -19,7 +19,7 @@ jobs:
 
       - name: Install snap
         run: |
-          sudo snap install --dangerous ${{ steps.build.outputs.snap }}
+          sudo snap install --classic --dangerous ${{ steps.build.outputs.snap }}
 
       - name: Test snap
         run: |
