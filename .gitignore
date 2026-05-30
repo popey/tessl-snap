@@ -19,3 +19,10 @@ stage/
 # Tessl local config
 .tessl/
 tessl.json
+
+# Agent files
+.mcp.json
+.gemini
+
+# Other developer files
+.vscode

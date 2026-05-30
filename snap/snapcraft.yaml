@@ -1,17 +1,18 @@
 name: tessl
 base: core24
 version: '0.81.0'
-summary: Tessl keeps coding agents on rails using spec-driven development
+summary: Agent Enablement Platform that gives your agents the context they're missing.
 description: |
   Install usage docs for your favorite open source library from the Tessl Spec Registry
   Create your own internal docs and share with your team
 website: https://tessl.io
+issues: https://github.com/tesslio/cli/issues
 title: Tessl
 license: Proprietary
 contact: https://discord.com/invite/jbb2vHnHZQ
 
 grade: stable
-confinement: strict
+confinement: classic
 
 platforms:
   amd64:
@@ -19,15 +20,16 @@ platforms:
 
 parts:
   tessl:
-    plugin: npm
-    npm-include-node: true
-    source: https://registry.npmjs.org/@tessl/cli/-/cli-$CRAFT_PROJECT_VERSION.tgz
-    npm-node-version: "22"
+    plugin: nil
+    source:
+      - on amd64: https://install.tessl.io/binaries/$CRAFT_PROJECT_VERSION/tessl-$CRAFT_PROJECT_VERSION-linux-x64.tar.gz
+      - on arm64: https://install.tessl.io/binaries/$CRAFT_PROJECT_VERSION/tessl-$CRAFT_PROJECT_VERSION-linux-arm64.tar.gz
+    override-build: |
+      install -D -m 0755 tessl-$CRAFT_PROJECT_VERSION-linux-* $CRAFT_PART_INSTALL/bin/tessl
 
 apps:
   tessl:
     command: bin/tessl
-    plugs:
-      - home
-      - network
-      - removable-media
+    environment:
+      TESSL_MANAGED_BY_NPM: "0"
+      TESSL_AUTO_UPDATE_INTERVAL_MINUTES: "0"
