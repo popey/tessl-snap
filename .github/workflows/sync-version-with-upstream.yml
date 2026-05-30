@@ -18,12 +18,16 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Get latest version from npm
+      - name: Get latest version from get.tessl.io
         id: latest
         run: |
-          LATEST_VERSION=$(curl -s https://registry.npmjs.org/@tessl/cli/latest | jq -r '.version')
+          LATEST_VERSION=$(curl -fsSL https://get.tessl.io | grep -E '^[[:space:]]*TESSL_VERSION="' | head -1 | sed -E 's/.*TESSL_VERSION="([^"]+)".*/\1/')
+          if [ -z "$LATEST_VERSION" ]; then
+            echo "Error: failed to extract TESSL_VERSION from install script" >&2
+            exit 1
+          fi
           echo "version=$LATEST_VERSION" >> $GITHUB_OUTPUT
-          echo "Latest npm version: $LATEST_VERSION"
+          echo "Latest upstream version: $LATEST_VERSION"
 
       - name: Get current version from snapcraft.yaml
         id: current
@@ -56,11 +60,11 @@ jobs:
           commit-message: "Update to ${{ steps.latest.outputs.version }}"
           title: "Update to ${{ steps.latest.outputs.version }}"
           body: |
-            Automated version update from upstream npm package.
+            Automated version update from upstream Tessl installer.
 
             - Previous: `${{ steps.current.outputs.version }}`
             - New: `${{ steps.latest.outputs.version }}`
 
-            [npm package](https://www.npmjs.com/package/@tessl/cli/v/${{ steps.latest.outputs.version }})
+            Source: https://get.tessl.io
           branch: auto-update-${{ steps.latest.outputs.version }}
           delete-branch: true
