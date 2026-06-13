@@ -1,6 +1,6 @@
 name: tessl
 base: core24
-version: '0.81.0'
+version: '0.84.0'
 summary: Agent Enablement Platform that gives your agents the context they're missing.
 description: |
   Install usage docs for your favorite open source library from the Tessl Spec Registry
